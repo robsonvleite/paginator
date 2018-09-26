@@ -3,7 +3,9 @@
 namespace CoffeeCode\Paginator;
 
 /**
- * Class Paginator
+ * Class CoffeCodde Paginator
+ *
+ * @author Robson V. Leite <https://github.com/robsonvleite>
  * @package CoffeeCode\Paginator
  */
 class Paginator
@@ -53,7 +55,6 @@ class Paginator
         $this->last = ($last ?? ["Última página", ">>"]);
     }
 
-
     /**
      * @param int $rows
      * @param int $limit
@@ -62,14 +63,14 @@ class Paginator
      * @param string|null $hash
      * @return Paginator
      */
-    public function pager(int $rows, int $limit = 10, ?int $page = null, int $range = 3, string $hash = null): Paginator
+    public function pager(int $rows, int $limit = 10, int $page = null, int $range = 3, string $hash = null): Paginator
     {
         $this->page = ($page ?? 1);
         $this->rows = $rows;
         $this->limit = $limit;
         $this->range = $range;
 
-        $this->offset = ($page * $limit) - $limit;
+        $this->offset = (($page * $limit) - $limit >= 0 ? ($page * $limit) - $limit : 0);
         $this->hash = ($hash ? "#{$hash}" : null);
 
         if ($this->offset >= $this->rows) {
