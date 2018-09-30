@@ -4,7 +4,7 @@
 [![Source Code](http://img.shields.io/badge/source-coffeecode/paginator-blue.svg?style=flat-square)](https://github.com/robsonvleite/paginator)
 [![Latest Version](https://img.shields.io/github/release/robsonvleite/paginator.svg?style=flat-square)](https://github.com/robsonvleite/paginator/releases)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
-[![Build Status](https://scrutinizer-ci.com/g/robsonvleite/paginator/badges/build.png?b=master&style=flat-square)](https://scrutinizer-ci.com/g/robsonvleite/paginator/build-status/master)
+[![Build](https://img.shields.io/scrutinizer/build/g/robsonvleite/paginator.svg?style=flat-square)](https://scrutinizer-ci.com/g/robsonvleite/paginator)
 [![Quality Score](https://img.shields.io/scrutinizer/g/robsonvleite/paginator.svg?style=flat-square)](https://scrutinizer-ci.com/g/robsonvleite/paginator)
 [![Total Downloads](https://img.shields.io/packagist/dt/coffeecode/paginator.svg?style=flat-square)](https://packagist.org/packages/coffeecode/paginator)
 
