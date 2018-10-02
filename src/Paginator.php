@@ -3,7 +3,7 @@
 namespace CoffeeCode\Paginator;
 
 /**
- * Class CoffeCodde Paginator
+ * Class CofffeCode Paginator
  *
  * @author Robson V. Leite <https://github.com/robsonvleite>
  * @package CoffeeCode\Paginator
