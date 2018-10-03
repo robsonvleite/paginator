@@ -14,6 +14,9 @@ class Paginator
     private $page;
 
     /** @var int */
+    private $pages;
+
+    /** @var int */
     private $rows;
 
     /** @var int */
@@ -32,6 +35,9 @@ class Paginator
     private $title;
 
     /** @var string */
+    private $class;
+
+    /** @var string */
     private $hash;
 
     /** @var array */
@@ -39,9 +45,6 @@ class Paginator
 
     /** @var array */
     private $last;
-
-    /** @var string */
-    private $cssClass;
 
     /**
      * Paginator constructor.
@@ -103,16 +106,16 @@ class Paginator
      */
     public function render(string $cssClass = "paginator"): ?string
     {
-        $this->cssClass = $cssClass;
+        $this->class = $cssClass;
+        $this->pages = (int)ceil($this->rows / $this->limit);
 
         if ($this->rows > $this->limit):
-            $pages = ceil($this->rows / $this->limit);
-            $paginator = "<nav class=\"{$this->cssClass}\">";
-            $paginator .= "<a class='{$this->cssClass}_item' title=\"{$this->first[0]}\" href=\"{$this->link}1{$this->hash}\">{$this->first[1]}</a>";
+            $paginator = "<nav class=\"{$this->class}\">";
+            $paginator .= "<a class='{$this->class}_item' title=\"{$this->first[0]}\" href=\"{$this->link}1{$this->hash}\">{$this->first[1]}</a>";
             $paginator .= $this->beforePages();
-            $paginator .= "<span class=\"{$this->cssClass}_item {$this->cssClass}_active\">{$this->page}</span>";
-            $paginator .= $this->afterPages($pages);
-            $paginator .= "<a class='{$this->cssClass}_item' title=\"{$this->last[0]}\" href=\"{$this->link}{$pages}{$this->hash}\">{$this->last[1]}</a>";
+            $paginator .= "<span class=\"{$this->class}_item {$this->class}_active\">{$this->page}</span>";
+            $paginator .= $this->afterPages();
+            $paginator .= "<a class='{$this->class}_item' title=\"{$this->last[0]}\" href=\"{$this->link}{$this->pages}{$this->hash}\">{$this->last[1]}</a>";
             $paginator .= "</nav>";
             return $paginator;
         endif;
@@ -128,7 +131,7 @@ class Paginator
         $before = null;
         for ($iPag = $this->page - $this->range; $iPag <= $this->page - 1; $iPag++):
             if ($iPag >= 1):
-                $before .= "<a class='{$this->cssClass}_item' title=\"{$this->title} {$iPag}\" href=\"{$this->link}{$iPag}{$this->hash}\">{$iPag}</a>";
+                $before .= "<a class='{$this->class}_item' title=\"{$this->title} {$iPag}\" href=\"{$this->link}{$iPag}{$this->hash}\">{$iPag}</a>";
             endif;
         endfor;
 
@@ -139,12 +142,12 @@ class Paginator
      * @param int $pages
      * @return null|string
      */
-    private function afterPages(int $pages): ?string
+    private function afterPages(): ?string
     {
         $after = null;
         for ($dPag = $this->page + 1; $dPag <= $this->page + $this->range; $dPag++):
-            if ($dPag <= $pages):
-                $after .= "<a class='{$this->cssClass}_item' title=\"{$this->title} {$dPag}\" href=\"{$this->link}{$dPag}{$this->hash}\">{$dPag}</a>";
+            if ($dPag <= $this->pages):
+                $after .= "<a class='{$this->class}_item' title=\"{$this->title} {$dPag}\" href=\"{$this->link}{$dPag}{$this->hash}\">{$dPag}</a>";
             endif;
         endfor;
 
