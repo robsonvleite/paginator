@@ -61,9 +61,8 @@ class Paginator
      * @param int|null $page
      * @param int $range
      * @param string|null $hash
-     * @return Paginator
      */
-    public function pager(int $rows, int $limit = 10, int $page = null, int $range = 3, string $hash = null): Paginator
+    public function pager(int $rows, int $limit = 10, int $page = null, int $range = 3, string $hash = null): void
     {
         $this->page = ($page ?? 1);
         $this->rows = $rows;
@@ -77,8 +76,6 @@ class Paginator
             header("Location: {$this->link}" . ceil($this->rows / $this->limit));
             exit;
         }
-
-        return $this;
     }
 
     /**
