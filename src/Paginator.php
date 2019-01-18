@@ -70,15 +70,15 @@ class Paginator
      */
     public function pager(int $rows, int $limit = 10, int $page = null, int $range = 3, string $hash = null): void
     {
-        $this->page = ($page ?? 1);
-        $this->rows = $rows;
-        $this->limit = $limit;
-        $this->range = $range;
+        $this->page = ($page >= 1 ? $page : 1);
+        $this->rows = ($rows >= 1 ? $rows : 1);
+        $this->limit = ($limit >= 1 ? $limit : 1);
+        $this->range = ($range >= 1 ? $range : 1);
 
         $this->offset = (($page * $limit) - $limit >= 0 ? ($page * $limit) - $limit : 0);
         $this->hash = ($hash ? "#{$hash}" : null);
 
-        if ($this->offset >= $this->rows) {
+        if ($this->rows && $this->offset >= $this->rows) {
             header("Location: {$this->link}" . ceil($this->rows / $this->limit));
             exit;
         }
@@ -139,8 +139,7 @@ class Paginator
     }
 
     /**
-     * @param int $pages
-     * @return null|string
+     * @return string|null
      */
     private function afterPages(): ?string
     {
