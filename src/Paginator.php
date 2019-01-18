@@ -70,10 +70,10 @@ class Paginator
      */
     public function pager(int $rows, int $limit = 10, int $page = null, int $range = 3, string $hash = null): void
     {
-        $this->page = ($page >= 1 ? $page : 1);
-        $this->rows = ($rows >= 1 ? $rows : 1);
-        $this->limit = ($limit >= 1 ? $limit : 1);
-        $this->range = ($range >= 1 ? $range : 1);
+        $this->page = $this->toPositive($page);
+        $this->rows = $this->toPositive($rows);
+        $this->limit = $this->toPositive($limit);
+        $this->range = $this->toPositive($range);
 
         $this->offset = (($page * $limit) - $limit >= 0 ? ($page * $limit) - $limit : 0);
         $this->hash = ($hash ? "#{$hash}" : null);
@@ -151,5 +151,14 @@ class Paginator
         endfor;
 
         return $after;
+    }
+
+    /**
+     * @param $number
+     * @return int
+     */
+    private function toPositive($number): int
+    {
+        return ($number >= 1 ? $number : 1);
     }
 }
