@@ -70,13 +70,14 @@ class Paginator
      */
     public function pager(int $rows, int $limit = 10, int $page = null, int $range = 3, string $hash = null): void
     {
-        $this->page = $this->toPositive($page);
         $this->rows = $this->toPositive($rows);
         $this->limit = $this->toPositive($limit);
         $this->range = $this->toPositive($range);
+        $this->pages = (int)ceil($this->rows / $this->limit);
+        $this->page = ($page <= $this->pages ? $this->toPositive($page) : $this->pages);
 
-        $this->offset = (($page * $limit) - $limit >= 0 ? ($page * $limit) - $limit : 0);
-        $this->hash = ($hash ? "#{$hash}" : null);
+        $this->offset = (($this->page * $this->limit) - $this->limit >= 0 ? ($this->page * $this->limit) - $this->limit : 0);
+        $this->hash = (!empty($hash) ? "#{$hash}" : null);
 
         if ($this->rows && $this->offset >= $this->rows) {
             header("Location: {$this->link}" . ceil($this->rows / $this->limit));
@@ -101,13 +102,28 @@ class Paginator
     }
 
     /**
+     * @return int
+     */
+    public function page()
+    {
+        return $this->page;
+    }
+
+    /**
+     * @return int
+     */
+    public function pages()
+    {
+        return $this->pages;
+    }
+
+    /**
      * @param string $cssClass
      * @return null|string
      */
     public function render(string $cssClass = "paginator"): ?string
     {
         $this->class = $cssClass;
-        $this->pages = (int)ceil($this->rows / $this->limit);
 
         if ($this->rows > $this->limit):
             $paginator = "<nav class=\"{$this->class}\">";
