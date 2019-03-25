@@ -125,6 +125,10 @@ class Paginator
     {
         $this->class = $cssClass;
 
+        if ( strpos(" {$this->class}" ,"pagination")) {
+            return $this->renderHtmlBootstrap();
+        }
+
         if ($this->rows > $this->limit):
             $paginator = "<nav class=\"{$this->class}\">";
             $paginator .= "<a class='{$this->class}_item' title=\"{$this->first[0]}\" href=\"{$this->link}1{$this->hash}\">{$this->first[1]}</a>";
@@ -132,6 +136,38 @@ class Paginator
             $paginator .= "<span class=\"{$this->class}_item {$this->class}_active\">{$this->page}</span>";
             $paginator .= $this->afterPages();
             $paginator .= "<a class='{$this->class}_item' title=\"{$this->last[0]}\" href=\"{$this->link}{$this->pages}{$this->hash}\">{$this->last[1]}</a>";
+            $paginator .= "</nav>";
+            return $paginator;
+        endif;
+
+        return null;
+    }
+
+    /**
+     * @return string|null
+     */
+    private function renderHtmlBootstrap(): ?string
+    {
+        $class = strpos($this->class, "-") ? $this->class : "";
+        if ($this->rows > $this->limit):
+            $paginator = "<nav aria-label='Navegação de página'>";
+            $paginator .= "<ul class='pagination {$class}'>";
+            $paginator .= "<li class='page-item'>";
+            $paginator .= "<a class='page-link' title='{$this->first[0]}' href='{$this->link}1{$this->hash}'>{$this->first[1]}</a>";
+            $paginator .= "</li>";
+            $paginator .= "<li class='page-item'>";
+            $paginator .= str_replace("{$this->class}_item", "page-link", $this->beforePages());
+            $paginator .= "</li>";
+            $paginator .= "<li class='page-item active'>";
+            $paginator .= "<span class='page-link'> {$this->page}<span class='sr-only'>(atual)</span></span>";
+            $paginator .= "</li>";
+            $paginator .= "<li class='page-item'>";
+            $paginator .= str_replace("{$this->class}_item", "page-link", $this->afterPages());
+            $paginator .= "</li>";
+            $paginator .= "<li class='page-item'>";
+            $paginator .= "<a class='page-link' title='{$this->last[0]}' href='{$this->link}{$this->pages}{$this->hash}'>{$this->last[1]}</a>";
+            $paginator .= "</li>";
+            $paginator .= "</ul>";
             $paginator .= "</nav>";
             return $paginator;
         endif;
