@@ -35,7 +35,7 @@ CoffeeCode é um conjunto de pequenos e otimizados componentes PHP para tarefas 
 Paginator is available via Composer:
 
 ```bash
-"coffeecode/paginator": "^1.0"
+"coffeecode/paginator": "1.0.*"
 ```
 
 or run
