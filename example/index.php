@@ -15,7 +15,7 @@ $pager->pager(100, 10, $page);
     <p>Paginator is simple and is ready to generate results navigation in your application.</p>
     <pre>SELECT * table LIMIT <?= $pager->limit(); ?> OFFSET <?= $pager->offset(); ?>;</pre>
 
-    <?= $pager->render(); ?>
+    <?= $pager->render(null, false); ?>
 </div>
 
 

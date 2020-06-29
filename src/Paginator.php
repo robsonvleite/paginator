@@ -119,19 +119,20 @@ class Paginator
 
     /**
      * @param string $cssClass
+     * @param bool $fixedFirstAndLastPage
      * @return null|string
      */
-    public function render(string $cssClass = "paginator"): ?string
+    public function render(string $cssClass = null, bool $fixedFirstAndLastPage = true): ?string
     {
-        $this->class = $cssClass;
+        $this->class = $cssClass ?? "paginator";
 
         if ($this->rows > $this->limit):
             $paginator = "<nav class=\"{$this->class}\">";
-            $paginator .= "<a class='{$this->class}_item' title=\"{$this->first[0]}\" href=\"{$this->link}1{$this->hash}\">{$this->first[1]}</a>";
+            $paginator .= $this->firstPage($fixedFirstAndLastPage);
             $paginator .= $this->beforePages();
             $paginator .= "<span class=\"{$this->class}_item {$this->class}_active\">{$this->page}</span>";
             $paginator .= $this->afterPages();
-            $paginator .= "<a class='{$this->class}_item' title=\"{$this->last[0]}\" href=\"{$this->link}{$this->pages}{$this->hash}\">{$this->last[1]}</a>";
+            $paginator .= $this->lastPage($fixedFirstAndLastPage);
             $paginator .= "</nav>";
             return $paginator;
         endif;
@@ -167,6 +168,22 @@ class Paginator
         endfor;
 
         return $after;
+    }
+
+    public function firstPage($fixedFirstAndLastPage): ?string
+    {
+        if ($fixedFirstAndLastPage || $this->page != 1) {
+            return "<a class='{$this->class}_item' title=\"{$this->first[0]}\" href=\"{$this->link}1{$this->hash}\">{$this->first[1]}</a>";
+        }
+        return null;
+    }
+
+    public function lastPage($fixedFirstAndLastPage): ?string
+    {
+        if ($fixedFirstAndLastPage || $this->page != $this->pages) {
+            return "<a class='{$this->class}_item' title=\"{$this->last[0]}\" href=\"{$this->link}{$this->pages}{$this->hash}\">{$this->last[1]}</a>";
+        }
+        return null;
     }
 
     /**

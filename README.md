@@ -74,6 +74,12 @@ echo $pager->render();
 </nav>
 ````
 
+##### Dynamic First And Last Page
+
+````php
+$pager->render(null, false);
+````
+
 ## Contributing
 
 Please see [CONTRIBUTING](https://github.com/robsonvleite/paginator/blob/master/CONTRIBUTING.md) for details.
