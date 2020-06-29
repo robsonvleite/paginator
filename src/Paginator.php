@@ -170,7 +170,11 @@ class Paginator
         return $after;
     }
 
-    public function firstPage($fixedFirstAndLastPage): ?string
+    /**
+     * @param bool $fixedFirstAndLastPage
+     * @return string|null
+     */
+    public function firstPage(bool $fixedFirstAndLastPage = true): ?string
     {
         if ($fixedFirstAndLastPage || $this->page != 1) {
             return "<a class='{$this->class}_item' title=\"{$this->first[0]}\" href=\"{$this->link}1{$this->hash}\">{$this->first[1]}</a>";
@@ -178,7 +182,11 @@ class Paginator
         return null;
     }
 
-    public function lastPage($fixedFirstAndLastPage): ?string
+    /**
+     * @param bool $fixedFirstAndLastPage
+     * @return string|null
+     */
+    public function lastPage(bool $fixedFirstAndLastPage = true): ?string
     {
         if ($fixedFirstAndLastPage || $this->page != $this->pages) {
             return "<a class='{$this->class}_item' title=\"{$this->last[0]}\" href=\"{$this->link}{$this->pages}{$this->hash}\">{$this->last[1]}</a>";
