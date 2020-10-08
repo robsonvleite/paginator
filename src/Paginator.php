@@ -218,6 +218,11 @@ class Paginator
         $this->params = '';
         
         if (count($params) > 0) {
+			
+            if (isset($params['page'])) {
+                unset($params['page']);
+            }
+            
             $this->params  = '&';
             $this->params .= http_build_query($params);
         }
