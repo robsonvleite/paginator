@@ -71,7 +71,7 @@ class Paginator
      * @param int $range
      * @param string|null $hash
      */
-    public function pager(int $rows, int $limit = 10, int $page = null, int $range = 3, string $hash = null, array $params = null): void
+    public function pager(int $rows, int $limit = 10, int $page = null, int $range = 3, string $hash = null, array $params = []): void
     {
         $this->rows = $this->toPositive($rows);
         $this->limit = $this->toPositive($limit);
