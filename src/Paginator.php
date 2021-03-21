@@ -70,6 +70,7 @@ class Paginator
      * @param int|null $page
      * @param int $range
      * @param string|null $hash
+     * @param array $params
      */
     public function pager(int $rows, int $limit = 10, int $page = null, int $range = 3, string $hash = null, array $params = []): void
     {
