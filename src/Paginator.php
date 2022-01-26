@@ -134,11 +134,21 @@ class Paginator
 
         if ($this->rows > $this->limit):
             $paginator = "<nav class=\"{$this->class}\">";
-            $paginator .= $this->firstPage($fixedFirstAndLastPage);
+
+            // Se o ponteiro for maior ou igual a 2 atribuir "<<"
+            if ($this->page >= 2) :
+                $paginator .= $this->firstPage($fixedFirstAndLastPage);
+            endif;
+
             $paginator .= $this->beforePages();
             $paginator .= "<span class=\"{$this->class}_item {$this->class}_active\">{$this->page}</span>";
             $paginator .= $this->afterPages();
-            $paginator .= $this->lastPage($fixedFirstAndLastPage);
+
+            // Se o ponteiro for menor que seu limite atribuir ">>"
+            if ($this->page < ($this->rows / $this->limit)):
+                $paginator .= $this->lastPage($fixedFirstAndLastPage);
+            endif;
+
             $paginator .= "</nav>";
             return $paginator;
         endif;
