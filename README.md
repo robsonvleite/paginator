@@ -56,7 +56,9 @@ require __DIR__ . "/../vendor/autoload.php";
 
 $page = filter_input(INPUT_GET, "page", FILTER_VALIDATE_INT);
 $pager = new \CoffeeCode\Paginator\Paginator();
-$pager->pager($page, 100, 10);
+
+// total, limit, pointer
+$pager->pager(100, 10, $page); 
 
 echo $pager->render();
 ```
