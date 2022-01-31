@@ -136,7 +136,7 @@ class Paginator
             $paginator = "<nav class=\"{$this->class}\">";
 
             // Se o ponteiro for maior ou igual a 2 atribuir "<<"
-            if ($this->page >= 2) :
+            if ($this->page >= 2):
                 $paginator .= $this->firstPage($fixedFirstAndLastPage);
             endif;
 
