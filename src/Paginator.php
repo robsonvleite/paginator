@@ -10,45 +10,45 @@ namespace CoffeeCode\Paginator;
  */
 class Paginator
 {
-    /** @var int */
-    private $page;
+    /** @var int|null */
+    private ?int $page;
 
     /** @var int */
-    private $pages;
+    private int $pages;
 
     /** @var int */
-    private $rows;
+    private int $rows;
+
+    /** @var int|null */
+    private ?int $limit;
+
+    /** @var int|null */
+    private ?int $offset;
 
     /** @var int */
-    private $limit;
-
-    /** @var int */
-    private $offset;
-
-    /** @var int */
-    private $range;
+    private int $range;
 
     /** @var string */
-    private $link;
+    private ?string $link;
 
     /** @var string */
-    private $title;
+    private string $title;
 
     /** @var string */
-    private $class;
+    private string $class;
 
-    /** @var string */
-    private $hash;
+    /** @var string|null */
+    private ?string $hash;
 
     /** @var array */
-    private $first;
+    private array $first;
 
     /** @var array */
-    private $last;
+    private array $last;
 
     /** @var string */
-    private $params;
-	
+    private string $params;
+
     /**
      * Paginator constructor.
      * @param string|null $link
@@ -72,8 +72,14 @@ class Paginator
      * @param string|null $hash
      * @param array $params
      */
-    public function pager(int $rows, int $limit = 10, int $page = null, int $range = 3, string $hash = null, array $params = []): void
-    {
+    public function pager(
+        int $rows,
+        int $limit = 10,
+        int $page = null,
+        int $range = 3,
+        string $hash = null,
+        array $params = []
+    ): void {
         $this->rows = $this->toPositive($rows);
         $this->limit = $this->toPositive($limit);
         $this->range = $this->toPositive($range);
@@ -82,8 +88,8 @@ class Paginator
 
         $this->offset = (($this->page * $this->limit) - $this->limit >= 0 ? ($this->page * $this->limit) - $this->limit : 0);
         $this->hash = (!empty($hash) ? "#{$hash}" : null);
-		
-		$this->addGetParams($params);
+
+        $this->addGetParams($params);
 
         if ($this->rows && $this->offset >= $this->rows) {
             header("Location: {$this->link}" . ceil($this->rows / $this->limit));
@@ -110,7 +116,7 @@ class Paginator
     /**
      * @return int
      */
-    public function page()
+    public function page(): int
     {
         return $this->page;
     }
@@ -118,13 +124,13 @@ class Paginator
     /**
      * @return int
      */
-    public function pages()
+    public function pages(): int
     {
         return $this->pages;
     }
 
     /**
-     * @param string $cssClass
+     * @param string|null $cssClass
      * @param bool $fixedFirstAndLastPage
      * @return null|string
      */
@@ -154,7 +160,7 @@ class Paginator
         $before = null;
         for ($iPag = $this->page - $this->range; $iPag <= $this->page - 1; $iPag++):
             if ($iPag >= 1):
-                $before .= "<a class='{$this->class}_item' title=\"{$this->title} {$iPag}\" href=\"{$this->link}{$iPag}{$this->hash}{$this->params}\">{$iPag}</a>";
+                $before .= "<a class=\"{$this->class}_item\" title=\"{$this->title} {$iPag}\" href=\"{$this->link}{$iPag}{$this->hash}{$this->params}\">{$iPag}</a>";
             endif;
         endfor;
 
@@ -169,7 +175,7 @@ class Paginator
         $after = null;
         for ($dPag = $this->page + 1; $dPag <= $this->page + $this->range; $dPag++):
             if ($dPag <= $this->pages):
-                $after .= "<a class='{$this->class}_item' title=\"{$this->title} {$dPag}\" href=\"{$this->link}{$dPag}{$this->hash}{$this->params}\">{$dPag}</a>";
+                $after .= "<a class=\"{$this->class}_item\" title=\"{$this->title} {$dPag}\" href=\"{$this->link}{$dPag}{$this->hash}{$this->params}\">{$dPag}</a>";
             endif;
         endfor;
 
@@ -183,7 +189,7 @@ class Paginator
     public function firstPage(bool $fixedFirstAndLastPage = true): ?string
     {
         if ($fixedFirstAndLastPage || $this->page != 1) {
-            return "<a class='{$this->class}_item' title=\"{$this->first[0]}\" href=\"{$this->link}1{$this->hash}{$this->params}\">{$this->first[1]}</a>";
+            return "<a class=\"{$this->class}_item\" title=\"{$this->first[0]}\" href=\"{$this->link}1{$this->hash}{$this->params}\">{$this->first[1]}</a>";
         }
         return null;
     }
@@ -195,7 +201,7 @@ class Paginator
     public function lastPage(bool $fixedFirstAndLastPage = true): ?string
     {
         if ($fixedFirstAndLastPage || $this->page != $this->pages) {
-            return "<a class='{$this->class}_item' title=\"{$this->last[0]}\" href=\"{$this->link}{$this->pages}{$this->hash}{$this->params}\">{$this->last[1]}</a>";
+            return "<a class=\"{$this->class}_item\" title=\"{$this->last[0]}\" href=\"{$this->link}{$this->pages}{$this->hash}{$this->params}\">{$this->last[1]}</a>";
         }
         return null;
     }
@@ -208,26 +214,25 @@ class Paginator
     {
         return ($number >= 1 ? $number : 1);
     }
-	
+
     /**
      * Add get parameters
      * @param array $params
-     * @return null
+     * @return Paginator
      */
-    private function addGetParams(array $params)
+    private function addGetParams(array $params): Paginator
     {
         $this->params = '';
-        
+
         if (count($params) > 0) {
-			
             if (isset($params['page'])) {
                 unset($params['page']);
             }
-            
-            $this->params  = '&';
+
+            $this->params = '&';
             $this->params .= http_build_query($params);
         }
-        
+
         return $this;
     }
 }
