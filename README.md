@@ -5,7 +5,6 @@
 [![PHP from Packagist](https://img.shields.io/packagist/php-v/coffeecode/paginator.svg?style=flat-square)](https://packagist.org/packages/coffeecode/paginator)
 [![Latest Version](https://img.shields.io/github/release/robsonvleite/paginator.svg?style=flat-square)](https://github.com/robsonvleite/paginator/releases)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
-[![Build](https://img.shields.io/scrutinizer/build/g/robsonvleite/paginator.svg?style=flat-square)](https://scrutinizer-ci.com/g/robsonvleite/paginator)
 [![Quality Score](https://img.shields.io/scrutinizer/g/robsonvleite/paginator.svg?style=flat-square)](https://scrutinizer-ci.com/g/robsonvleite/paginator)
 [![Total Downloads](https://img.shields.io/packagist/dt/coffeecode/paginator.svg?style=flat-square)](https://packagist.org/packages/coffeecode/paginator)
 
@@ -31,8 +30,8 @@ equipe UpInside. Com eles você executa tarefas rotineiras com poucas linhas, es
 - ***render*** method to mount html ready to navigate (Método ***render*** para montar o html pronto para navegar)
 - Navigation structure with custom classes in elemenos ***nav***, ***a*** and ***span*** (Estrutura de navegação com
   classes personalizadas em elemenos ***nav***, ***a*** e ***span***)
-- Methods ***limit*** and ***offset*** to retrieve values ​​and integrate your ***SQL query*** (Método ***limit*** e ***
-  offset*** para resgatar valores e integrar a sua ***consulta SQL***)
+- Methods ***limit*** and ***offset*** to retrieve values ​​and integrate your ***SQL query*** (Método ***limit*** e
+  ***offset*** para resgatar valores e integrar a sua ***consulta SQL***)
 - Composer ready and PSR-2 compliant (Pronto para o composer e compatível com PSR-2)
 
 ## Installation
@@ -57,7 +56,6 @@ Para mais detalhes sobre como usar o paginator, veja a pasta de exemplo com deta
 
 ```php
 <?php
-require __DIR__ . "/../vendor/autoload.php";
 
 $page = filter_input(INPUT_GET, "page", FILTER_VALIDATE_INT);
 $pager = new \CoffeeCode\Paginator\Paginator();
@@ -69,7 +67,6 @@ echo $pager->render();
 ##### Result
 
 ````html
-
 <nav class="paginator">
     <a class='paginator_item' title="Primeira página" href="?page=1"><<</a>
     <span class="paginator_item paginator_active">1</span>
