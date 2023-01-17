@@ -160,7 +160,7 @@ class Paginator
         $before = null;
         for ($iPag = $this->page - $this->range; $iPag <= $this->page - 1; $iPag++):
             if ($iPag >= 1):
-                $before .= "<a class=\"{$this->class}_item\" title=\"{$this->title} {$iPag}\" href=\"{$this->link}{$iPag}{$this->hash}{$this->params}\">{$iPag}</a>";
+                $before .= "<a class=\"{$this->class}_item\" aria-label=\"{$this->title} {$iPag}\" title=\"{$this->title} {$iPag}\" href=\"{$this->link}{$iPag}{$this->hash}{$this->params}\">{$iPag}</a>";
             endif;
         endfor;
 
@@ -175,7 +175,7 @@ class Paginator
         $after = null;
         for ($dPag = $this->page + 1; $dPag <= $this->page + $this->range; $dPag++):
             if ($dPag <= $this->pages):
-                $after .= "<a class=\"{$this->class}_item\" title=\"{$this->title} {$dPag}\" href=\"{$this->link}{$dPag}{$this->hash}{$this->params}\">{$dPag}</a>";
+                $after .= "<a class=\"{$this->class}_item\" aria-label=\"{$this->title} {$dPag}\" title=\"{$this->title} {$dPag}\" href=\"{$this->link}{$dPag}{$this->hash}{$this->params}\">{$dPag}</a>";
             endif;
         endfor;
 
@@ -189,7 +189,7 @@ class Paginator
     public function firstPage(bool $fixedFirstAndLastPage = true): ?string
     {
         if ($fixedFirstAndLastPage || $this->page != 1) {
-            return "<a class=\"{$this->class}_item\" title=\"{$this->first[0]}\" href=\"{$this->link}1{$this->hash}{$this->params}\">{$this->first[1]}</a>";
+            return "<a class=\"{$this->class}_item\" aria-label=\"{$this->first[0]}\" title=\"{$this->first[0]}\" href=\"{$this->link}1{$this->hash}{$this->params}\">{$this->first[1]}</a>";
         }
         return null;
     }
@@ -201,7 +201,7 @@ class Paginator
     public function lastPage(bool $fixedFirstAndLastPage = true): ?string
     {
         if ($fixedFirstAndLastPage || $this->page != $this->pages) {
-            return "<a class=\"{$this->class}_item\" title=\"{$this->last[0]}\" href=\"{$this->link}{$this->pages}{$this->hash}{$this->params}\">{$this->last[1]}</a>";
+            return "<a class=\"{$this->class}_item\" aria-label=\"{$this->last[0]}\" title=\"{$this->last[0]}\" href=\"{$this->link}{$this->pages}{$this->hash}{$this->params}\">{$this->last[1]}</a>";
         }
         return null;
     }
