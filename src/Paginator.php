@@ -100,7 +100,7 @@ class Paginator
     /**
      * @return int
      */
-    public function limit(): int
+    public function limit(): ?int
     {
         return $this->limit;
     }
@@ -108,7 +108,7 @@ class Paginator
     /**
      * @return int
      */
-    public function offset(): int
+    public function offset(): ?int
     {
         return $this->offset;
     }
@@ -116,7 +116,7 @@ class Paginator
     /**
      * @return int
      */
-    public function page(): int
+    public function page(): ?int
     {
         return $this->page;
     }
